@@ -49,7 +49,7 @@
             </v-data-table>
         </v-card>
 
-        <v-card style="marginTop: 20px">
+        <v-card style="marginTop: 20px" v-if="checkedNames.length">
             <v-card-title>
                 <h5>Delete Multiple : </h5>
             </v-card-title>
@@ -63,7 +63,7 @@
             </v-card-text>
 
             <v-card-actions>
-                <v-btn depressed color="error" small @click="deleteAll">
+                <v-btn depressed color="error" small @click="dialogdeleteAll = true">
                     Hapus Semua
                 </v-btn>
             </v-card-actions>
@@ -135,6 +135,28 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <v-dialog v-model="dialogdeleteAll" persistent max-width="600px">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Apakah Anda Yakin Untuk Hapus Beberapa? </span>
+                </v-card-title>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn color="blue darken-1" 
+                    text @click="cancel">
+                        Tidak
+                    </v-btn>
+
+                    <v-btn color="blue darken-1" 
+                    text @click="deleteAll">
+                        Ya
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-main>
 </template>
 
@@ -151,6 +173,7 @@ export default {
             search: null,
             dialog: false,
             dialogdelete: false,
+            dialogdeleteAll: false,
             searchPriority: null,
             x: null,
             icons: {
@@ -158,8 +181,7 @@ export default {
                 mdiDelete,
             },
 
-            checkedNames: [
-            ],
+            checkedNames: [],
 
             headers: [
                 {
@@ -252,9 +274,10 @@ export default {
 
         deleteAll(){
             for(this.i = 0; this.i <= this.checkedNames.length; this.i++){
-                    this.todos = this.todos.filter(todo => todo !== this.checkedNames[this.i]);
+                this.todos = this.todos.filter(todo => todo !== this.checkedNames[this.i]);
             }
             this.checkedNames = [];
+            this.dialogdeleteAll =  false;
         },
     },
 };
