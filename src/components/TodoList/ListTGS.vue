@@ -233,6 +233,7 @@ export default {
             this.resetForm();
             this.dialogdelete = false;
             this.dialog = false;
+            this.dialogdeleteAll = false;
             this.x = null;
         },
 
