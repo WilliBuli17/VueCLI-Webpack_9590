@@ -39,7 +39,7 @@ const router = new VueRouter({
                 {
                     path: "/tgs",
                     name: "Tugas",
-                    component: importComponent('TodoList/List'),
+                    component: importComponent('TodoList/ListTGS'),
                 },
             ]
         },
